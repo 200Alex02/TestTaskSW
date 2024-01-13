@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.flow
 class GetUserTokenLoginUseCase(
     private val loginRepository: LoginRepository
 ) {
-
     suspend operator fun invoke(email: String, password: String): Flow<Resource<String>> {
         if (email.isBlank() && password.isBlank()) {
             return flow { }

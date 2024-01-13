@@ -11,6 +11,7 @@ data class Colors(
     val textColor: Color = Color(0XFF846340),
     val textColorButton: Color = Color(0XFFF6E5D1),
     val topBarBackground: Color = Color(0XFFFAF9F9),
+    val cardBackground: Color = Color(0XFFF6E5D1),
     val topBarLineColor: Color = Color(0XFFC2C2C2),
     val buttonRectangleBackground: Color = Color(0XFF342D1A),
     val textColorForTextField: Color = Color(0XFFAF9479),

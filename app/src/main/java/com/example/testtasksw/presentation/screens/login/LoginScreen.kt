@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
@@ -20,7 +21,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.testtasksw.R
@@ -29,9 +29,9 @@ import com.example.testtasksw.presentation.components.TextFieldCustom
 import com.example.testtasksw.theme.TestTaskSWTheme
 import com.example.testtasksw.theme.Typography
 
-@Preview(showBackground = true)
 @Composable
 fun LoginScreen(
+    onLoginBtnClick: () -> Unit,
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -113,6 +113,7 @@ fun LoginScreen(
                         if (viewModel.textEmail.isNotEmpty() && viewModel.textPassword.isNotEmpty()) {
                             viewModel.checkInputData = false
                             viewModel.loginUser()
+                            onLoginBtnClick()
                         } else {
                             viewModel.checkInputData = true
                         }
@@ -143,6 +144,10 @@ fun LoginScreen(
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
+        }
+
+        if (state.isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

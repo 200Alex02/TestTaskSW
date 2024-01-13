@@ -23,7 +23,6 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.testtasksw.R
@@ -32,9 +31,9 @@ import com.example.testtasksw.presentation.components.TextFieldCustom
 import com.example.testtasksw.theme.TestTaskSWTheme
 import com.example.testtasksw.theme.Typography
 
-@Preview(showBackground = true)
 @Composable
 fun RegisterScreen(
+    onRegisterBtnClick: () -> Unit,
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
@@ -132,6 +131,7 @@ fun RegisterScreen(
                         if (viewModel.textEmail.isNotEmpty() && viewModel.textPassword.isNotEmpty()) {
                             viewModel.checkInputData = false
                             viewModel.registerUser()
+                            onRegisterBtnClick()
                         } else {
                             viewModel.checkInputData = true
                         }

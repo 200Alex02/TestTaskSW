@@ -1,13 +1,19 @@
 package com.example.testtasksw.di
 
+import android.app.Application
 import android.content.Context
+import androidx.room.Room
 import com.example.testtasksw.common.Constant
 import com.example.testtasksw.common.DataStoreManager
+import com.example.testtasksw.data.local.db.CoffeeDatabase
 import com.example.testtasksw.data.remote.api.ApiService
+import com.example.testtasksw.data.repository.CoffeeShopsRepositoryImpl
 import com.example.testtasksw.data.repository.LoginRepositoryImpl
 import com.example.testtasksw.data.repository.RegisterRepositoryImpl
+import com.example.testtasksw.domain.repository.CoffeeShopsRepository
 import com.example.testtasksw.domain.repository.LoginRepository
 import com.example.testtasksw.domain.repository.RegisterRepository
+import com.example.testtasksw.domain.use_case.GetCoffeeShopsUseCase
 import com.example.testtasksw.domain.use_case.GetUserTokenLoginUseCase
 import com.example.testtasksw.domain.use_case.GetUserTokenRegisterUseCase
 import dagger.Module
@@ -34,7 +40,7 @@ object AppModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY // Уровень подробного логирования
+            level = HttpLoggingInterceptor.Level.BODY
         }
 
         return OkHttpClient.Builder()
@@ -51,6 +57,14 @@ object AppModule {
             .client(okHttpClient)
             .build()
             .create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoffeeDataBase(app: Application): CoffeeDatabase {
+        return Room.databaseBuilder(
+            app, CoffeeDatabase::class.java, Constant.DB_NAME
+        ).build()
     }
 
     @Provides
@@ -75,5 +89,20 @@ object AppModule {
     @Singleton
     fun provideGetUserTokenLoginUseCase(repository: LoginRepository): GetUserTokenLoginUseCase {
         return GetUserTokenLoginUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoffeeShopsRepository(
+        db: CoffeeDatabase,
+        api: ApiService
+    ): CoffeeShopsRepository {
+        return CoffeeShopsRepositoryImpl(api, db.dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCoffeeShopsUseCase(repository: CoffeeShopsRepository): GetCoffeeShopsUseCase {
+        return GetCoffeeShopsUseCase(repository)
     }
 }

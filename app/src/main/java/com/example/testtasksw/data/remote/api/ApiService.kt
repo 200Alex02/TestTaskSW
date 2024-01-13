@@ -1,6 +1,6 @@
 package com.example.testtasksw.data.remote.api
 
-import com.example.testtasksw.data.remote.dto.CoffeeDto
+import com.example.testtasksw.data.remote.dto.CoffeeShopDto
 import com.example.testtasksw.data.remote.dto.CoffeeMenuDto
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -23,7 +23,7 @@ interface ApiService {
     ): String
 
     @GET("/locations")
-    suspend fun getCoffees(@Header("Authorization") token: String): List<CoffeeDto>
+    suspend fun getCoffeeShops(@Header("Authorization") token: String): List<CoffeeShopDto>
 
 
     @GET("/location/{id}/menu")

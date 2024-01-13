@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -23,8 +24,10 @@ class DataStoreManager @Inject constructor(@ApplicationContext appContext: Conte
         }
     }
 
-    fun getString(key: String): Flow<String?> = myDataStore.data
-        .map { preferences ->
-            preferences[stringPreferencesKey(key)] ?: ""
+    suspend fun getString(key: String): String {
+        val valueFlow: Flow<String> = myDataStore.data.map {
+            it[stringPreferencesKey(key)] ?: ""
         }
+        return valueFlow.first()
+    }
 }
