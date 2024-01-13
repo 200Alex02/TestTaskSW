@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">TestTaskSW</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register">Регистрация</string>
+    <string name="login">Вход</string>
+    <string name="enter">Войти</string>
+    <string name="error_input_data">Заполните все поля</string>
+    <string name="placeholder_email">example@example.ru</string>
+    <string name="placeholder_password">******</string>
+    <string name="email">e-mail</string>
+    <string name="password">Пароль</string>
+    <string name="password_repeat">Повторите пароль</string>
 </resources>

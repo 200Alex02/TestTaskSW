@@ -1,4 +1,4 @@
-package com.example.testtasksw.theme.components
+package com.example.testtasksw.presentation.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -27,7 +27,7 @@ fun ButtonRectangle(
             .fillMaxWidth(),
         colors = ButtonDefaults.buttonColors(backgroundColor = backgroundColor),
         contentPadding = PaddingValues(vertical = 13.dp, horizontal = 16.dp),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(24.dp),
         elevation = ButtonDefaults.elevation(0.dp),
         enabled = enabled
     ) {

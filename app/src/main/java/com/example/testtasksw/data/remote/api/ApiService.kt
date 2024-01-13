@@ -1,4 +1,4 @@
-package com.example.testtasksw.data.api
+package com.example.testtasksw.data.remote.api
 
 import com.example.testtasksw.data.remote.dto.CoffeeDto
 import com.example.testtasksw.data.remote.dto.CoffeeMenuDto
@@ -14,14 +14,13 @@ interface ApiService {
     suspend fun getRegisterToken(
         @Query("login") login: String,
         @Query("password") password: String
-    ) 
+    ): String
 
     @POST("/auth/login")
     suspend fun getLoginToken(
         @Query("login") login: String,
         @Query("password") password: String
-    )
-
+    ): String
 
     @GET("/locations")
     suspend fun getCoffees(@Header("Authorization") token: String): List<CoffeeDto>

@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id "kotlin-kapt"
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -23,12 +25,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.4.3'
     }
 }
 
@@ -43,18 +52,13 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //Jetpack compose
-    // Основные библиотеки Compose для создания UI
     implementation "androidx.compose.ui:ui:1.5.4"
-    // Библиотеки Compose для Material Design
     implementation "androidx.compose.material:material:1.5.4"
-    // Утилиты для разработки и отладки Compose интерфейсов
     implementation "androidx.compose.ui:ui-tooling:1.5.4"
-    // Библиотека для работы Compose с LiveData
     implementation 'androidx.compose.runtime:runtime-livedata:1.5.4'
-    // Библиотека для работы Compose с ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2"
 
-    //Корутины
+    //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
 
     //Navigation
@@ -66,12 +70,25 @@ dependencies {
 
     //Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Dagger - Hilt
+    implementation "com.google.dagger:hilt-android:2.48.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.48.1"
+    kapt "androidx.hilt:hilt-compiler:1.1.0"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.1.0'
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-    //Gson библиотека-конвертер в ретрофит. Подключает GSON
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    //DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
+    // Room
+    implementation "androidx.room:room-runtime:2.6.1"
+    kapt "androidx.room:room-compiler:2.6.1"
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:2.6.1"
 }
