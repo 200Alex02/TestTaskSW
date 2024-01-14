@@ -7,9 +7,10 @@ import com.example.testtasksw.data.local.converters.Converters
 import com.example.testtasksw.data.local.dao.CoffeeDao
 import com.example.testtasksw.data.local.entity.CoffeeMenuEntity
 import com.example.testtasksw.data.local.entity.CoffeeShopEntity
+import com.example.testtasksw.data.local.entity.SelectedCoffeeEntity
 
 @Database(
-    entities = [CoffeeMenuEntity::class, CoffeeShopEntity::class],
+    entities = [CoffeeMenuEntity::class, CoffeeShopEntity::class, SelectedCoffeeEntity::class],
     version = 1
 )
 @TypeConverters(Converters::class)

@@ -28,8 +28,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.testtasksw.R
 import com.example.testtasksw.presentation.components.ButtonRectangle
 import com.example.testtasksw.presentation.components.TextFieldCustom
-import com.example.testtasksw.theme.TestTaskSWTheme
-import com.example.testtasksw.theme.Typography
+import com.example.testtasksw.presentation.ui.theme.TestTaskSWTheme
+import com.example.testtasksw.presentation.ui.theme.Typography
 
 @Composable
 fun LoginScreen(

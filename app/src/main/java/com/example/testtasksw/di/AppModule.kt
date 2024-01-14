@@ -7,14 +7,17 @@ import com.example.testtasksw.common.Constant
 import com.example.testtasksw.common.DataStoreManager
 import com.example.testtasksw.data.local.db.CoffeeDatabase
 import com.example.testtasksw.data.remote.api.ApiService
+import com.example.testtasksw.data.repository.CoffeeMenuItemRepositoryImpl
 import com.example.testtasksw.data.repository.CoffeeMenuRepositoryImpl
 import com.example.testtasksw.data.repository.CoffeeShopsRepositoryImpl
 import com.example.testtasksw.data.repository.LoginRepositoryImpl
 import com.example.testtasksw.data.repository.RegisterRepositoryImpl
+import com.example.testtasksw.domain.repository.CoffeeMenuItemRepository
 import com.example.testtasksw.domain.repository.CoffeeMenuRepository
 import com.example.testtasksw.domain.repository.CoffeeShopsRepository
 import com.example.testtasksw.domain.repository.LoginRepository
 import com.example.testtasksw.domain.repository.RegisterRepository
+import com.example.testtasksw.domain.use_case.GetCoffeeMenuItemByIdUseCase
 import com.example.testtasksw.domain.use_case.GetCoffeeMenuUseCase
 import com.example.testtasksw.domain.use_case.GetCoffeeShopsUseCase
 import com.example.testtasksw.domain.use_case.GetUserTokenLoginUseCase
@@ -122,5 +125,19 @@ object AppModule {
     @Singleton
     fun provideGetCoffeeMenuUseCase(repository: CoffeeMenuRepository): GetCoffeeMenuUseCase {
         return GetCoffeeMenuUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCoffeeMenuItemRepository(
+        db: CoffeeDatabase
+    ): CoffeeMenuItemRepository {
+        return CoffeeMenuItemRepositoryImpl(db.dao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCoffeeMenuItemByIdUseCase(repository: CoffeeMenuItemRepository): GetCoffeeMenuItemByIdUseCase {
+        return GetCoffeeMenuItemByIdUseCase(repository)
     }
 }

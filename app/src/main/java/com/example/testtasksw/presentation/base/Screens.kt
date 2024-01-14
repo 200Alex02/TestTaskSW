@@ -10,4 +10,6 @@ sealed class Screens(
     object CoffeeShopsScreen: Screens(route = "coffee_shops_screen")
 
     object CoffeeMenuScreen: Screens(route = "coffee_menu_screen/{id}")
+
+    object CoffeeOrderScreen: Screens(route = "coffee_order_screen")
 }

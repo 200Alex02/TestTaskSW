@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import com.example.testtasksw.theme.TestTaskSWTheme
+import com.example.testtasksw.presentation.ui.theme.TestTaskSWTheme
 
 @Composable
 fun TextFieldCustom(

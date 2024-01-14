@@ -5,7 +5,8 @@
     <string name="login">Вход</string>
     <string name="enter">Войти</string>
     <string name="on_map">На карте</string>
-    <string name="payment">Перейти к оплате</string>
+    <string name="go_to_payment">Перейти к оплате</string>
+    <string name="payment">Оплатить</string>
     <string name="near_coffees">Ближайшие кофейни</string>
     <string name="menu">Меню</string>
     <string name="error_input_data">Заполните все поля</string>
@@ -14,4 +15,5 @@
     <string name="email">e-mail</string>
     <string name="password">Пароль</string>
     <string name="password_repeat">Повторите пароль</string>
+    <string name="finish_order">Время ожидания заказа\n15 минут!\nСпасибо, что выбрали нас</string>
 </resources>

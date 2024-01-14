@@ -6,7 +6,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -29,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.testtasksw.R
 import com.example.testtasksw.presentation.components.ButtonRectangle
-import com.example.testtasksw.theme.TestTaskSWTheme
-import com.example.testtasksw.theme.Typography
+import com.example.testtasksw.presentation.ui.theme.TestTaskSWTheme
+import com.example.testtasksw.presentation.ui.theme.Typography
 
 @Composable
 fun CoffeeShopsScreen(
@@ -98,23 +97,24 @@ fun CoffeeShopsScreen(
                     textAlign = TextAlign.Center
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
-            ButtonRectangle(
-                onClick = {
-                    Toast.makeText(context, "Эта функция не доработана ещё!", Toast.LENGTH_SHORT)
-                        .show()
-                },
-                modifier = Modifier
-                    .padding(bottom = 25.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.on_map),
-                    color = TestTaskSWTheme.colors.textColorButton,
-                    style = Typography.h3,
-                    fontWeight = FontWeight.Bold,
-                    textAlign = TextAlign.Center
-                )
-            }
+        }
+
+        ButtonRectangle(
+            onClick = {
+                Toast.makeText(context, "Эта функция не доработана ещё!", Toast.LENGTH_SHORT)
+                    .show()
+            },
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 25.dp, start = 15.dp, end = 15.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.on_map),
+                color = TestTaskSWTheme.colors.textColorButton,
+                style = Typography.h3,
+                fontWeight = FontWeight.Bold,
+                textAlign = TextAlign.Center
+            )
         }
 
         if (state.isLoading) {

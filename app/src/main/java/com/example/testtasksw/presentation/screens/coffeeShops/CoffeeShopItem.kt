@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.testtasksw.theme.TestTaskSWTheme
-import com.example.testtasksw.theme.Typography
+import com.example.testtasksw.presentation.ui.theme.TestTaskSWTheme
+import com.example.testtasksw.presentation.ui.theme.Typography
 
 @Composable
 fun CoffeeShopItem(

@@ -7,7 +7,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.navigation.compose.rememberNavController
 import com.example.testtasksw.presentation.base.Navigation
 import com.example.testtasksw.presentation.base.Screens
-import com.example.testtasksw.theme.TestTaskSWTheme
+import com.example.testtasksw.presentation.ui.theme.TestTaskSWTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -31,8 +31,17 @@ class MainActivity : ComponentActivity() {
                     onBackCoffeeShopClick = {
                         navController.navigate(route = Screens.LoginScreen.route)
                     },
-                    onCoffeeShopClick = {id ->
+                    onCoffeeShopClick = { id ->
                         navController.navigate(route = "coffee_menu_screen/$id")
+                    },
+                    onBackCoffeeMenuClick = {
+                        navController.navigate(route = Screens.CoffeeShopsScreen.route)
+                    },
+                    onCoffeeMenuScreenClick = {
+                        navController.navigate(route = Screens.CoffeeOrderScreen.route)
+                    },
+                    onBackCoffeeOrderClick = {
+                        navController.navigate(route = Screens.CoffeeMenuScreen.route)
                     }
                 )
             }

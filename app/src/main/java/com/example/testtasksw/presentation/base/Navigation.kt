@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import com.example.testtasksw.presentation.screens.coffeeMenu.CoffeeMenuScreen
 import com.example.testtasksw.presentation.screens.coffeeShops.CoffeeShopsScreen
 import com.example.testtasksw.presentation.screens.login.LoginScreen
+import com.example.testtasksw.presentation.screens.order.CoffeeOrderScreen
 import com.example.testtasksw.presentation.screens.register.RegisterScreen
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -22,7 +23,10 @@ fun Navigation(
     onRegisterBtnClick: () -> Unit,
     onLoginBtnClick: () -> Unit,
     onBackCoffeeShopClick: () -> Unit,
+    onBackCoffeeMenuClick: () -> Unit,
     onCoffeeShopClick: (Int) -> Unit,
+    onCoffeeMenuScreenClick: () -> Unit,
+    onBackCoffeeOrderClick: () -> Unit
 
 ) {
     Scaffold(
@@ -51,7 +55,16 @@ fun Navigation(
             }
 
             composable(route = Screens.CoffeeMenuScreen.route) {
-                CoffeeMenuScreen()
+                CoffeeMenuScreen(
+                    onBackCoffeeMenuClick = onBackCoffeeMenuClick,
+                    onCoffeeMenuScreenClick = onCoffeeMenuScreenClick
+                )
+            }
+
+            composable(route = Screens.CoffeeOrderScreen.route) {
+                CoffeeOrderScreen(onBackCoffeeOrderClick = {
+                    onBackCoffeeOrderClick()
+                })
             }
         }
     }

@@ -1,16 +1,11 @@
-package com.example.testtasksw.presentation.screens.coffeeMenu
+package com.example.testtasksw.presentation.screens.order
 
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.testtasksw.common.Constant.COFFEE_SHOP_ID_KEY
-import com.example.testtasksw.common.Constant.TOKEN_KEY
-import com.example.testtasksw.common.DataStoreManager
 import com.example.testtasksw.common.Resource
-import com.example.testtasksw.domain.model.SelectedCoffee
-import com.example.testtasksw.domain.use_case.GetCoffeeMenuUseCase
+import com.example.testtasksw.domain.use_case.GetCoffeeMenuItemByIdUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.launchIn
@@ -19,27 +14,22 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CoffeeMenuViewModel @Inject constructor(
-    private val coffeeMenuUseCase: GetCoffeeMenuUseCase,
-    private val dataStoreManager: DataStoreManager,
-    private val savedStateHandle: SavedStateHandle
+class CoffeeMenuOrderViewModel @Inject constructor(
+    private val getCoffeeMenuItemByIdUseCase: GetCoffeeMenuItemByIdUseCase,
 ) : ViewModel() {
 
-    private val _state = mutableStateOf(CoffeeMenuState())
-    val state: State<CoffeeMenuState> = _state
+    private val _state = mutableStateOf(CoffeeMenuItemState())
+    val state: State<CoffeeMenuItemState> = _state
 
-    init {
+    fun getCoffeeMenuItem() {
         viewModelScope.launch(Dispatchers.IO) {
-            val token = dataStoreManager.getString(TOKEN_KEY)
-            val id = savedStateHandle.get<String>(key = COFFEE_SHOP_ID_KEY)
-
-            coffeeMenuUseCase(id.toString(), token)
+            getCoffeeMenuItemByIdUseCase.getSelectedCoffee()
                 .onEach { result ->
                     when (result) {
+
                         is Resource.Loading -> {
                             viewModelScope.launch(Dispatchers.Main) {
-                                _state.value = state.value.copy(
-                                    coffeeMenu = result.data ?: emptyList(),
+                                _state.value = CoffeeMenuItemState(
                                     isLoading = true
                                 )
                             }
@@ -47,16 +37,16 @@ class CoffeeMenuViewModel @Inject constructor(
 
                         is Resource.Error -> {
                             viewModelScope.launch(Dispatchers.Main) {
-                                _state.value = state.value.copy(
-                                    coffeeMenu = result.data ?: emptyList(),
-                                    error = result.message ?: "An unexpected error occured"
+                                _state.value = CoffeeMenuItemState(
+                                    error = result.message
+                                        ?: "Failed to retrieve coffee menu item from database"
                                 )
                             }
                         }
 
                         is Resource.Success -> {
                             viewModelScope.launch(Dispatchers.Main) {
-                                _state.value = state.value.copy(
+                                _state.value = CoffeeMenuItemState(
                                     coffeeMenu = result.data ?: emptyList(),
                                     isLoading = false
                                 )
@@ -67,9 +57,10 @@ class CoffeeMenuViewModel @Inject constructor(
         }
     }
 
-    fun insertSelectedCoffee(selectedCoffee: SelectedCoffee) {
+    fun deleteSelectedCoffee(coffeeId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            coffeeMenuUseCase.insertSelectedCoffee(selectedCoffee)
+            getCoffeeMenuItemByIdUseCase.deleteSelectedCoffee(coffeeId)
         }
+        getCoffeeMenuItem()
     }
 }
