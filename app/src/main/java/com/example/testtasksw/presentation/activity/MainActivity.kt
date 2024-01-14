@@ -31,8 +31,8 @@ class MainActivity : ComponentActivity() {
                     onBackCoffeeShopClick = {
                         navController.navigate(route = Screens.LoginScreen.route)
                     },
-                    onCoffeeShopClick = {
-
+                    onCoffeeShopClick = {id ->
+                        navController.navigate(route = "coffee_menu_screen/$id")
                     }
                 )
             }

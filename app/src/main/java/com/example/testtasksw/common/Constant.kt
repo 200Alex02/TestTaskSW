@@ -5,4 +5,5 @@ object Constant {
     const val DATA_STORE_NAME = "my_data_store"
     const val DB_NAME = "coffee_db"
     const val TOKEN_KEY = "token"
+    const val GAME_ID_KEY = "id"
 }

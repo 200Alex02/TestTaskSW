@@ -9,6 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.testtasksw.common.Resource
 import com.example.testtasksw.domain.use_case.GetUserTokenRegisterUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -27,6 +30,9 @@ class RegisterViewModel @Inject constructor(
     private val _state = mutableStateOf(RegisterState())
     val state: State<RegisterState> = _state
 
+    private val _tokenState = MutableStateFlow("")
+    val tokenState: StateFlow<String> = _tokenState.asStateFlow()
+
     fun registerUser() {
         viewModelScope.launch {
             getUserTokenRegisterUseCase(textEmail, textPasswordRepeat)
@@ -43,7 +49,10 @@ class RegisterViewModel @Inject constructor(
                         }
 
                         is Resource.Success -> {
-                            _state.value = RegisterState(token = result.data ?: "")
+                            _tokenState.value = result.data ?: ""
+                            _state.value = RegisterState(
+                                isLoading = false
+                            )
                         }
                     }
                 }.launchIn(this)

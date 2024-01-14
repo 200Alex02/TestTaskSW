@@ -2,6 +2,7 @@ package com.example.testtasksw.data.repository
 
 import com.example.testtasksw.common.Resource
 import com.example.testtasksw.data.remote.api.ApiService
+import com.example.testtasksw.data.remote.model.LoginRequest
 import com.example.testtasksw.domain.repository.LoginRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -17,8 +18,8 @@ class LoginRepositoryImpl(
     ): Flow<Resource<String>> = flow {
         try {
             emit(Resource.Loading())
-            val loginToken = api.getLoginToken(email, password)
-            emit(Resource.Success(loginToken))
+            val loginResponse = api.getLoginToken(LoginRequest(email, password))
+            emit(Resource.Success(loginResponse.token))
         } catch (e: HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occured"))
         } catch (e: IOException) {

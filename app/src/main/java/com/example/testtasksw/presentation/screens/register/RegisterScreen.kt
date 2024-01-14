@@ -14,6 +14,8 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +39,7 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
+    val token by viewModel.tokenState.collectAsState()
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -94,7 +97,7 @@ fun RegisterScreen(
                     },
                     singleLine = true,
                     placeholder = stringResource(id = R.string.placeholder_password),
-                    visualTransformation = VisualTransformation.None
+                    visualTransformation = PasswordVisualTransformation()
                 )
                 Text(
                     text = stringResource(id = R.string.password_repeat),
@@ -131,7 +134,6 @@ fun RegisterScreen(
                         if (viewModel.textEmail.isNotEmpty() && viewModel.textPassword.isNotEmpty()) {
                             viewModel.checkInputData = false
                             viewModel.registerUser()
-                            onRegisterBtnClick()
                         } else {
                             viewModel.checkInputData = true
                         }
@@ -148,7 +150,11 @@ fun RegisterScreen(
                     )
                 }
 
-                if (state.error.isNotEmpty() || state.token.isEmpty()) {
+                if (token.isNotEmpty()) {
+                    onRegisterBtnClick()
+                }
+
+                if (state.error.isNotEmpty()) {
                     Text(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)

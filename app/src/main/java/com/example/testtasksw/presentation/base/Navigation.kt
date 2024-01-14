@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.testtasksw.presentation.screens.coffeeMenu.CoffeeMenuScreen
 import com.example.testtasksw.presentation.screens.coffeeShops.CoffeeShopsScreen
 import com.example.testtasksw.presentation.screens.login.LoginScreen
 import com.example.testtasksw.presentation.screens.register.RegisterScreen
@@ -21,7 +22,7 @@ fun Navigation(
     onRegisterBtnClick: () -> Unit,
     onLoginBtnClick: () -> Unit,
     onBackCoffeeShopClick: () -> Unit,
-    onCoffeeShopClick: () -> Unit,
+    onCoffeeShopClick: (Int) -> Unit,
 
 ) {
     Scaffold(
@@ -43,8 +44,14 @@ fun Navigation(
             composable(route = Screens.CoffeeShopsScreen.route) {
                 CoffeeShopsScreen(
                     onBackCoffeeShopClick = onBackCoffeeShopClick,
-                    onCoffeeShopClick = onCoffeeShopClick
+                    onCoffeeShopClick = {id ->
+                        onCoffeeShopClick(id)
+                    }
                 )
+            }
+
+            composable(route = Screens.CoffeeMenuScreen.route) {
+                CoffeeMenuScreen()
             }
         }
     }

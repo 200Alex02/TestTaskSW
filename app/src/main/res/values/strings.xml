@@ -4,7 +4,10 @@
     <string name="register">Регистрация</string>
     <string name="login">Вход</string>
     <string name="enter">Войти</string>
+    <string name="on_map">На карте</string>
+    <string name="payment">Перейти к оплате</string>
     <string name="near_coffees">Ближайшие кофейни</string>
+    <string name="menu">Меню</string>
     <string name="error_input_data">Заполните все поля</string>
     <string name="placeholder_email">example@example.ru</string>
     <string name="placeholder_password">******</string>

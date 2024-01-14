@@ -13,6 +13,8 @@ import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,6 +37,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
+    val token by viewModel.tokenState.collectAsState()
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize()
@@ -113,7 +116,6 @@ fun LoginScreen(
                         if (viewModel.textEmail.isNotEmpty() && viewModel.textPassword.isNotEmpty()) {
                             viewModel.checkInputData = false
                             viewModel.loginUser()
-                            onLoginBtnClick()
                         } else {
                             viewModel.checkInputData = true
                         }
@@ -144,6 +146,10 @@ fun LoginScreen(
                 }
             }
             Spacer(modifier = Modifier.weight(1f))
+        }
+
+        if (token.isNotEmpty()) {
+            onLoginBtnClick()
         }
 
         if (state.isLoading) {
